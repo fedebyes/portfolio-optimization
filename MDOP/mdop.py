@@ -198,28 +198,110 @@ def main_loop(num_portfolios):
                     max_entropy_by_period_portfolio[key] = portfolio
                 else:
                     if (sum_total > max_entropy_by_period_value[key] ):
-                        print("In period {} {} of portfolio {} is bigger than {} of portfolio {}".format(
-                            key,
-                            sum_total,
-                            portfolio,
-                            max_entropy_by_period_value[key],
-                            max_entropy_by_period_portfolio[key]
-                        ) )
+                        # print("In period {} {} of portfolio {} is bigger than {} of portfolio {}".format(
+                        #     key,
+                        #     sum_total,
+                        #     portfolio,
+                        #     max_entropy_by_period_value[key],
+                        #     max_entropy_by_period_portfolio[key]
+                        # ) )
                         max_entropy_by_period_portfolio[key] = portfolio
                     max_entropy_by_period_value[key] = max(sum_total, max_entropy_by_period_value[key])
 
 
     print(max_entropy_by_period_portfolio)
     print(max_entropy_by_period_value)
-    # final
-    # final_weights = {}
-    # year = 2012
-    # for position in dest:
-    #     #     print(position)
-    #     final_weights[year] = stock_all_weights[position]
-    #     year += 1
-    # # print(type(final_weights))
+    print("\n")
+    final_weights = {}
+    for period, portfolio in max_entropy_by_period_portfolio.items():
+        final_weights[period] = stock_all_weights[portfolio]
+    print(final_weights)
 
+    i=0
+    j=60
+    returns_all = []
+    volatility_all = []
+    sharpe_ratio = []
+    sortino_list_1 = []
+    sortino_list_2 = []
+    weights_best = np.array(final_weights)
+    # print(weights_best)
+    # print(final_weights)
+
+    for period, weights in final_weights:
+        weights.values().mean
+    #
+    # for weights in final_weights.values():
+    #     #     print(weights.values())
+    #     #     print(type(avg_returns))
+    #
+    #     avg_returns = returns.iloc[i+60:j+12].mean().to_frame()
+    #     #     print(avg_returns)
+    #     weights = pd.DataFrame.from_dict(weights.values())
+    #     returns_max = returns.iloc[i+60:j+12].mean(axis=1)
+    #
+    #     weighted_ret = avg_returns.values * weights.values
+    #     weighted_ret = weighted_ret.tolist()
+    #     weighted_ret = [val for sublist in weighted_ret for val in sublist]
+    #
+    #     returns_p = (sum(weighted_ret))*12
+    #     #     print(returns_p)
+    #     returns_all.append(returns_p)
+    #
+    #
+    #     returns_sortino = returns.iloc[i:j]
+    #     weights = pd.DataFrame(weights)
+    #     weights_list = weights.values.tolist()
+    #     weights_list = [val for sublist in weights_list for val in sublist]
+    #
+    #
+    #     weighted_sortino = returns_sortino *  weights_list
+    #     #     print(weighted_sortino)
+    #     returns_p_sortino = weighted_sortino.sum(axis=1)
+    #
+    #     returns_p_sortino = pd.DataFrame(returns_p_sortino)
+    #     rf_sortino = riskfree.iloc[i:j] / 100
+    #
+    #
+    #     #     print(len(returns_p_sortino.values))
+    #     #     print(len(rf_sortino.values))
+    #     #     break
+    #     excess_returns_sortino = returns_p_sortino.values - rf_sortino.values
+    #
+    #
+    #     cov_matrix = returns.iloc[i:j].cov()
+    #     var = np.dot(weights.T,np.dot(cov_matrix,weights))
+    #     sd = np.sqrt(var)
+    #     vol_p = sd*np.sqrt(12)
+    #     volatility_all.append(vol_p)
+    #
+    #     rf = float(riskfree.iloc[j]) / 100
+    #     s_r = (returns_p - rf) / vol_p
+    #     s_r = np.round(s_r,3)
+    #     sharpe_ratio.append(s_r)
+    #
+    #
+    #
+    #     lpm_1 = (np.maximum(0,  rf - np.asarray(excess_returns_sortino)) ** 2).mean(axis=0)
+    #     lpm_2 = (np.maximum(0,  0 -np.asarray(excess_returns_sortino)) ** 2).mean(axis=0)
+    #
+    #     sort1 = ( returns_p - rf) / np.sqrt(lpm_1)
+    #     sort1 = np.round(sort1,3).tolist()
+    #     sortino_list_1.append(sort1)
+    #
+    #     sort2 = ( returns_p - rf) / np.sqrt(lpm_2)
+    #     sort2 = np.round(sort2,3).tolist()
+    #     sortino_list_2.append(sort2)
+    #
+    #
+    #     i+=12
+    #     j+=12
+    #
+    # print(sharpe_ratio)
+    # print(sortino_list_1)
+    # print(sortino_list_2)
+    # print(returns_all)
+    # print(volatility_all)
 
 if __name__ == '__main__':
     main_loop(num_portfolios=5)
